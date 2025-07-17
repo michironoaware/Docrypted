@@ -1,22 +1,15 @@
 import "./App.css";
-import {
-	FluentProvider,
-	webLightTheme,
-	Theme
-} from "@fluentui/react-components";
-import { useId } from "react";
+import { FluentProvider, webLightTheme, Theme } from "@fluentui/react-components";
 
 const customWebLightTheme: Theme = {
 	...webLightTheme,
-	fontFamilyBase: "\"Rubik\", sans-serif",
-}
+	fontFamilyBase: '"Rubik", sans-serif',
+};
 
-export default function App()
-{
-	const encryptionAlgorithmDropdownId = useId();
-
-	return <>
-		<FluentProvider theme={customWebLightTheme}>
-		</FluentProvider>
-	</>;
+export default function App() {
+	return (
+		<>
+			<FluentProvider theme={customWebLightTheme}></FluentProvider>
+		</>
+	);
 }
