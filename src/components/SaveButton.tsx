@@ -76,7 +76,6 @@ export default function SaveButton() {
 		</InfoLabel>
 	);
 
-	// @ts-ignore
 	return (
 		<Dialog>
 			<DialogTrigger disableButtonEnhancement>
@@ -107,7 +106,7 @@ export default function SaveButton() {
 								</Select>
 							</Field>
 							<Field label={passwordIterationsInputLabel} required>
-								<Input type={"number"} defaultValue={150_000}></Input>
+								<Input type={"number"} defaultValue={"150000"}></Input>
 							</Field>
 						</div>
 					</DialogContent>
