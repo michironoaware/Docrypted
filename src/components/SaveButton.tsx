@@ -48,7 +48,35 @@ export default function SaveButton() {
 			Encryption Algorithm
 		</InfoLabel>
 	);
+	const passwordIterationsInputLabel = (
+		<InfoLabel
+			info={
+				<>
+					<p>
+						The number of hashing iterations determines how many times your password is processed to
+						generate the encryption key. Higher values make it much harder for attackers to guess your
+						password, but also slightly increase the time it takes to encrypt or decrypt files.
+					</p>
+					<List>
+						<ListItem>
+							Recommended: <b>150,000 iterations</b> — good balance of security and performance.
+						</ListItem>
+						<ListItem>
+							Faster: <b>100,000 iterations</b> — quicker on older devices.
+						</ListItem>
+						<ListItem>
+							Very strong: <b>300,000 iterations+</b> — maximizes security with a noticeable performance
+							cost.
+						</ListItem>
+					</List>
+				</>
+			}
+		>
+			Password hashing iterations
+		</InfoLabel>
+	);
 
+	// @ts-ignore
 	return (
 		<Dialog>
 			<DialogTrigger disableButtonEnhancement>
@@ -77,6 +105,9 @@ export default function SaveButton() {
 								<Select>
 									<option>AES-GCM</option>
 								</Select>
+							</Field>
+							<Field label={passwordIterationsInputLabel} required>
+								<Input type={"number"} defaultValue={150_000}></Input>
 							</Field>
 						</div>
 					</DialogContent>
