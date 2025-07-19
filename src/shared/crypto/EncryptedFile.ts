@@ -32,6 +32,12 @@ export class EncryptedFile {
 	}
 
 	public async decrypt(password: string) {
-		return await AesGcm.decrypt(this.content, password, this.passwordIterations, this.initializationVector);
+		return await AesGcm.decrypt(
+			this.content,
+			password,
+			this.passwordIterations,
+			this.salt,
+			this.initializationVector,
+		);
 	}
 }

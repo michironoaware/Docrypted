@@ -5,11 +5,12 @@ export namespace AesGcm {
 		content: Uint8Array,
 		password: string,
 		passwordIterations: number,
+		salt: Uint8Array,
 		initializationVector: Uint8Array,
 	) {
 		const subtle = window.crypto.subtle;
 
-		const key = await getKey(password, passwordIterations);
+		const key = await getKey(password, passwordIterations, salt);
 
 		let decryptedBuffer = await subtle.decrypt(
 			{
@@ -40,10 +41,10 @@ export namespace AesGcm {
 		return new AesGcmEncryptedDocument(key.salt, initializationVector, content);
 	}
 
-	async function getKey(password: string, iterations: number) {
+	async function getKey(password: string, iterations: number, salt?: Uint8Array) {
 		const subtle = window.crypto.subtle;
 
-		const salt = window.crypto.getRandomValues(new Uint8Array(16));
+		salt = salt ?? window.crypto.getRandomValues(new Uint8Array(16));
 
 		const passwordAsUtf8 = new TextEncoder().encode(password);
 		const baseKey = await subtle.importKey("raw", passwordAsUtf8, "PBKDF2", false, ["deriveKey"]);
