@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Textarea } from "@fluentui/react-components";
 import SaveButton from "./SaveButton.tsx";
 import LoadButton from "./LoadButton.tsx";
@@ -21,6 +21,12 @@ export default function FileEditor() {
 	const [fileToDecryptName, setFileToDecryptName] = useState("");
 	const [fileToDecrypt, setFileToDecrypt] = useState<EncryptedFile | null>(null);
 	const [decryptPasswordValidationMessage, setDecryptPasswordValidationMessage] = useState("");
+
+	const textareaRef = useRef<HTMLTextAreaElement>(null!);
+
+	useEffect(() => {
+		textareaRef.current.focus();
+	}, []);
 
 	function verifyFileName(fileName: string) {
 		if (StringHelper.isWhiteSpace(fileName)) {
@@ -153,6 +159,7 @@ export default function FileEditor() {
 				</div>
 			</div>
 			<Textarea
+				ref={textareaRef}
 				textarea={{ className: "!max-h-full" }}
 				size={"large"}
 				resize={"both"}
