@@ -21,7 +21,7 @@ import { InputOnChangeData } from "@fluentui/react-input";
 import { EncryptionAlgorithm } from "../shared/crypto/EncryptionAlgorithm.ts";
 
 export default function SaveButton(props: ISaveButtonProps) {
-	const fileNameInputLabel = <InfoLabel info={"The name the file will be saved with."}>File name</InfoLabel>;
+	const fileNameInputLabel = <InfoLabel info={"The name with which the file will be saved."}>File name</InfoLabel>;
 	const passwordInputLabel = (
 		<InfoLabel
 			info={"Used to encrypt and decrypt the file. " + "This password will be required to access the file later."}
