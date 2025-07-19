@@ -5,6 +5,7 @@ import LoadButton from "./LoadButton.tsx";
 import { EncryptionAlgorithm } from "../shared/crypto/EncryptionAlgorithm.ts";
 import { StringHelper } from "../shared/StringHelper.ts";
 import { FileCypher } from "../shared/crypto/FileCypher.ts";
+import { EncryptedFile } from "../shared/crypto/EncryptedFile.ts";
 
 export default function FileEditor() {
 	const [fileName, setFileName] = useState("Docrypted file");
@@ -15,6 +16,11 @@ export default function FileEditor() {
 	const [fileNameValidationMessage, setFileNameValidationMessage] = useState("");
 	const [passwordValidationMessage, setPasswordValidationMessage] = useState("");
 	const [passwordIterationsValidationMessage, setPasswordIterationsValidationMessage] = useState("");
+
+	const [decryptPassword, setDecryptPassword] = useState("");
+	const [fileToDecryptName, setFileToDecryptName] = useState("");
+	const [fileToDecrypt, setFileToDecrypt] = useState<EncryptedFile | null>(null);
+	const [decryptPasswordValidationMessage, setDecryptPasswordValidationMessage] = useState("");
 
 	function verifyFileName(fileName: string) {
 		if (StringHelper.isWhiteSpace(fileName)) {
@@ -46,6 +52,16 @@ export default function FileEditor() {
 		return true;
 	}
 
+	function verifyDecryptPassword(password: string) {
+		if (StringHelper.isWhiteSpace(password)) {
+			setDecryptPasswordValidationMessage("Password must be not empty.");
+			return false;
+		}
+
+		setDecryptPasswordValidationMessage();
+		return true;
+	}
+
 	function onFileNameChange(ev: ChangeEvent<HTMLInputElement>) {
 		setFileName(ev.target.value);
 		verifyFileName(ev.target.value);
@@ -67,6 +83,11 @@ export default function FileEditor() {
 		verifyPasswordIterations(value);
 	}
 
+	function onDecryptPasswordChange(ev: ChangeEvent<HTMLInputElement>) {
+		setDecryptPassword(ev.target.value);
+		verifyDecryptPassword(ev.target.value);
+	}
+
 	async function onSave() {
 		if (!(verifyFileName(fileName) && verifyPassword(password) && verifyPasswordIterations(passwordIterations))) {
 			return;
@@ -80,12 +101,48 @@ export default function FileEditor() {
 		);
 	}
 
+	async function onFileInput(ev: ChangeEvent<HTMLInputElement>) {
+		const file = await FileCypher.instance.load(ev.target.files![0]!);
+		setFileToDecrypt(file);
+		setFileToDecryptName(ev.target.value.slice(0, ev.target.value.lastIndexOf(".")));
+	}
+
+	async function onLoad() {
+		setDecryptPasswordValidationMessage("");
+
+		let byteContent: Uint8Array;
+		try {
+			byteContent = await fileToDecrypt!.decrypt(decryptPassword);
+		} catch (err) {
+			if (
+				!(err instanceof DOMException) ||
+				!(err.name === "InvalidAccessError" || err.name === "OperationError")
+			) {
+				throw err;
+			}
+
+			setDecryptPasswordValidationMessage("Password is invalid.");
+			return false;
+		}
+
+		setText("AasG");
+		setText(new TextDecoder().decode(byteContent));
+		setFileName(fileToDecryptName);
+		setPassword(decryptPassword);
+		return true;
+	}
+
 	return (
 		<div className={"flex flex-col gap-2"}>
 			<div className={"flex flex-row justify-between"}>
 				<div className={"flex flex-row gap-2"}></div>
 				<div className={"flex flex-row gap-2"}>
-					<LoadButton />
+					<LoadButton
+						passwordValidationMessage={decryptPasswordValidationMessage}
+						onFileInput={onFileInput}
+						onPasswordChange={onDecryptPasswordChange}
+						onLoad={onLoad}
+					/>
 					<SaveButton
 						fileName={fileName}
 						password={password}
@@ -104,6 +161,7 @@ export default function FileEditor() {
 				textarea={{ className: "!max-h-full" }}
 				size={"large"}
 				resize={"both"}
+				value={text}
 				onChange={(ev) => setText(ev.target.value)}
 			></Textarea>
 		</div>
