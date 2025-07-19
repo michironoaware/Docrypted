@@ -61,7 +61,7 @@ export namespace AesGcm {
 				length: 256,
 			},
 			false,
-			["encrypt"],
+			["encrypt", "decrypt"],
 		);
 
 		return Object.freeze({
