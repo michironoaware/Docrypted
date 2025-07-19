@@ -30,7 +30,7 @@ export default function FileEditor() {
 
 	function verifyFileName(fileName: string) {
 		if (StringHelper.isWhiteSpace(fileName)) {
-			setFileNameValidationMessage("File name must be not empty.");
+			setFileNameValidationMessage("File name must not be empty.");
 			return false;
 		}
 
@@ -40,7 +40,7 @@ export default function FileEditor() {
 
 	function verifyPassword(password: string) {
 		if (StringHelper.isWhiteSpace(password)) {
-			setPasswordValidationMessage("Password must be not empty.");
+			setPasswordValidationMessage("Password must not be empty.");
 			return false;
 		}
 
@@ -60,7 +60,7 @@ export default function FileEditor() {
 
 	function verifyDecryptPassword(password: string) {
 		if (StringHelper.isWhiteSpace(password)) {
-			setDecryptPasswordValidationMessage("Password must be not empty.");
+			setDecryptPasswordValidationMessage("Password must not be empty.");
 			return false;
 		}
 
