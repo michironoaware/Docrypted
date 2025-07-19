@@ -18,11 +18,7 @@ import { InputOnChangeData } from "@fluentui/react-input";
 
 export default function LoadButton(props: ILoadButtonProps) {
 	const passwordInputLabel = (
-		<InfoLabel
-			info={"Used to encrypt and decrypt the file. " + "This password will be required to access the file later."}
-		>
-			Password
-		</InfoLabel>
+		<InfoLabel info={"Used to encrypt and decrypt the file. " + "Required to access the file."}>Password</InfoLabel>
 	);
 
 	const [dialogOpen, setDialogOpen] = useState(false);
