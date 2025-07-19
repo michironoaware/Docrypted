@@ -6,6 +6,10 @@ import { IEncryptedFileData } from "./IEncryptedFileData.ts";
 import { Base64 } from "../Base64.ts";
 
 export class FileCypher {
+	public static readonly instance = new FileCypher();
+
+	private constructor() {}
+
 	public async load(file: File) {
 		return new EncryptedFile(JSON.parse(await file.text()));
 	}
@@ -22,7 +26,7 @@ export class FileCypher {
 		} satisfies IEncryptedFileData;
 
 		const link = document.createElement("a");
-		const fileBlob = new Blob([fileData.toString()]);
+		const fileBlob = new Blob([JSON.stringify(fileData)]);
 		link.href = URL.createObjectURL(fileBlob);
 		link.download = `${filename}.docrypted`;
 		link.click();
