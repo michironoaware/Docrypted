@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
 	Dialog,
 	DialogTrigger,
@@ -14,10 +14,14 @@ import {
 	Select,
 	List,
 	ListItem,
+	SelectOnChangeData,
 } from "@fluentui/react-components";
 import { Dismiss24Regular } from "@fluentui/react-icons";
+import * as React_2 from "react";
+import { InputOnChangeData } from "@fluentui/react-input";
+import { EncryptionAlgorithm } from "../shared/crypto/EncryptionAlgorithm.ts";
 
-export default function SaveButton() {
+export default function SaveButton(props: ISaveButtonProps) {
 	const fileNameInputLabel = <InfoLabel info={"The name the file will be saved with."}>File name</InfoLabel>;
 	const passwordInputLabel = (
 		<InfoLabel
@@ -94,27 +98,62 @@ export default function SaveButton() {
 					</DialogTitle>
 					<DialogContent>
 						<div className={"flex flex-col gap-4 mb-4"}>
-							<Field label={fileNameInputLabel} required>
-								<Input defaultValue={"Docrypted file"}></Input>
+							<Field
+								label={fileNameInputLabel}
+								validationMessage={props.fileNameValidationMessage}
+								required
+							>
+								<Input value={props.fileName} onChange={props.onFileNameChange}></Input>
 							</Field>
-							<Field label={passwordInputLabel} required>
-								<Input type={"password"}></Input>
+							<Field
+								label={passwordInputLabel}
+								validationMessage={props.passwordValidationMessage}
+								required
+							>
+								<Input
+									type={"password"}
+									value={props.password}
+									onChange={props.onPasswordChange}
+								></Input>
 							</Field>
 							<Field label={encryptionAlgorithmInputLabel} required>
-								<Select>
-									<option>AES-GCM</option>
+								<Select onChange={props.onEncryptionAlgorithmChange}>
+									<option value={EncryptionAlgorithm.AesGcm}>AES-GCM</option>
 								</Select>
 							</Field>
-							<Field label={passwordIterationsInputLabel} required>
-								<Input type={"number"} defaultValue={"150000"}></Input>
+							<Field
+								label={passwordIterationsInputLabel}
+								validationMessage={props.passwordIterationsValidationMessage}
+								required
+							>
+								<Input
+									type={"number"}
+									defaultValue={"150000"}
+									onChange={props.onPasswordIterationsChange}
+								></Input>
 							</Field>
 						</div>
 					</DialogContent>
 					<DialogActions>
-						<Button appearance="primary">Save</Button>
+						<Button appearance="primary" onClick={props.onSave}>
+							Save
+						</Button>
 					</DialogActions>
 				</DialogBody>
 			</DialogSurface>
 		</Dialog>
 	);
+}
+
+export interface ISaveButtonProps {
+	fileName: string;
+	password: string;
+	fileNameValidationMessage: string;
+	passwordValidationMessage: string;
+	passwordIterationsValidationMessage: string;
+	onFileNameChange: (ev: ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => void;
+	onPasswordChange: (ev: ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => void;
+	onEncryptionAlgorithmChange: (ev: ChangeEvent<HTMLSelectElement>, data: SelectOnChangeData) => void;
+	onPasswordIterationsChange: (ev: ChangeEvent<HTMLInputElement>, data: InputOnChangeData) => void;
+	onSave: () => void;
 }
