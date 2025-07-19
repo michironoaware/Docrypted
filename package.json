@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"@csstools/normalize.css": "^12.1.1",
-		"@fluentui/react-components": "^9.66.8",
+		"@fluentui/react-components": "^9.67.0",
 		"@fluentui/react-icons": "^2.0.306",
 		"@tailwindcss/vite": "^4.1.11",
 		"michi-typehelper": "^1.0.4",
