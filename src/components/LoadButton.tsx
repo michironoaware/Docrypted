@@ -70,7 +70,7 @@ export default function LoadButton(props: ILoadButtonProps) {
 							className={"w-full"}
 							icon={<AddCircleRegular />}
 							secondaryContent={
-								"Drag and drop or browse to choose the file you want " +
+								"Browse to choose the file you want " +
 								"to encrypt or decrypt. The file stays on your device."
 							}
 						>
