@@ -1,4 +1,4 @@
-import { Base64 } from "shared/Base64.ts";
+import { Base64 } from "../Base64.ts";
 import { EncryptedDocumentVersion } from "./EncryptedDocumentVersion.ts";
 import { EncryptionAlgorithm } from "./EncryptionAlgorithm.ts";
 import { TypeHelper } from "michi-typehelper";
