@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { Button, Textarea } from "@fluentui/react-components";
+import { Textarea } from "@fluentui/react-components";
 import SaveButton from "./SaveButton.tsx";
 import LoadButton from "./LoadButton.tsx";
 import { EncryptionAlgorithm } from "../shared/crypto/EncryptionAlgorithm.ts";

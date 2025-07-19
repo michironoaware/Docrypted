@@ -1,4 +1,4 @@
-import { ChangeEvent, ChangeEventHandler, useId, useState } from "react";
+import { ChangeEvent, useId, useState } from "react";
 import {
 	Dialog,
 	DialogTrigger,
@@ -11,12 +11,9 @@ import {
 	Field,
 	Input,
 	InfoLabel,
-	Select,
-	List,
-	ListItem,
 	CompoundButton,
 } from "@fluentui/react-components";
-import { AddCircleRegular, Dismiss24Regular, DismissRegular } from "@fluentui/react-icons";
+import { AddCircleRegular, Dismiss24Regular } from "@fluentui/react-icons";
 import { InputOnChangeData } from "@fluentui/react-input";
 
 export default function LoadButton(props: ILoadButtonProps) {
