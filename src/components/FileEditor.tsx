@@ -128,7 +128,7 @@ export default function FileEditor() {
 
 		setText("AasG");
 		setText(new TextDecoder().decode(byteContent));
-		setFileName(fileToDecryptName);
+		setFileName(fileToDecryptName.replace("C:\\fakepath\\", ""));
 		setPassword(decryptPassword);
 		return true;
 	}
