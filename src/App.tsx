@@ -5,12 +5,12 @@ import { useState } from "react";
 
 const customWebLightTheme: Theme = {
 	...webLightTheme,
-	fontFamilyBase: '"Rubik", sans-serif',
+	fontFamilyBase: '"Montserrat", sans-serif',
 };
 
 const customWebDarkTheme: Theme = {
 	...webDarkTheme,
-	fontFamilyBase: '"Rubik", sans-serif',
+	fontFamilyBase: '"Montserrat", sans-serif',
 };
 
 export default function App() {
