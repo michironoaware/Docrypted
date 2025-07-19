@@ -28,7 +28,7 @@ export default function FileEditor() {
 			return false;
 		}
 
-		setFileNameValidationMessage();
+		setFileNameValidationMessage("");
 		return true;
 	}
 
@@ -38,7 +38,7 @@ export default function FileEditor() {
 			return false;
 		}
 
-		setPasswordValidationMessage();
+		setPasswordValidationMessage("");
 		return true;
 	}
 
@@ -48,7 +48,7 @@ export default function FileEditor() {
 			return false;
 		}
 
-		setPasswordIterationsValidationMessage();
+		setPasswordIterationsValidationMessage("");
 		return true;
 	}
 
@@ -58,7 +58,7 @@ export default function FileEditor() {
 			return false;
 		}
 
-		setDecryptPasswordValidationMessage();
+		setDecryptPasswordValidationMessage("");
 		return true;
 	}
 
@@ -74,7 +74,7 @@ export default function FileEditor() {
 
 	function onEncryptionAlgorithmChange(ev: ChangeEvent<HTMLSelectElement>) {
 		const value = parseInt(ev.target.value, 10);
-		setEncryptionAlgorithm(isNan(value) ? 0 : value);
+		setEncryptionAlgorithm(isNaN(value) ? 0 : value);
 	}
 
 	function onPasswordIterationsChange(ev: ChangeEvent<HTMLInputElement>) {
@@ -93,12 +93,7 @@ export default function FileEditor() {
 			return;
 		}
 
-		await FileCypher.instance.saveAsAesGcm(
-			new TextEncoder("utf-8").encode(text),
-			password,
-			fileName,
-			passwordIterations,
-		);
+		await FileCypher.instance.saveAsAesGcm(new TextEncoder().encode(text), password, fileName, passwordIterations);
 	}
 
 	async function onFileInput(ev: ChangeEvent<HTMLInputElement>) {
