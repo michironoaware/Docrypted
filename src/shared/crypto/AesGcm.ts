@@ -38,7 +38,7 @@ export namespace AesGcm {
 			content,
 		);
 
-		return new AesGcmEncryptedDocument(key.salt, initializationVector, content);
+		return new AesGcmEncryptedDocument(key.salt, initializationVector, new Uint8Array(encryptedBuffer));
 	}
 
 	async function getKey(password: string, iterations: number, salt?: Uint8Array) {
